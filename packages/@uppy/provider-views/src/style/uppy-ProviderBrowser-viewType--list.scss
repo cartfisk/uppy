@@ -27,12 +27,20 @@
     border-radius: 3px;
     background-color: $white;
     border: 1px solid $gray-300;
+    &[aria-disabled=true] {
+      border: 1px solid $gray-200;
+    }
 
     // Focus: show blue outline
     &:focus {
       border: 1px solid $blue;
       box-shadow: 0 0 0 3px rgba($blue, 0.25);
       outline: none;
+      &[aria-disabled=true] {
+        border: 1px solid $gray-300;
+        box-shadow: none;
+        outline: none;
+      }
     }
 
     // Checkmark icon
@@ -42,9 +50,19 @@
       left: 3px; top: 4px;
     }
 
-    [data-uppy-theme="dark"] &:focus {
-      border-color: rgba($highlight--dark, 0.7);
-      box-shadow: 0 0 0 3px rgba($highlight--dark, 0.2);
+    [data-uppy-theme="dark"] & {
+      &[aria-disabled=true] {
+        border: 1px solid $gray-800;
+        &:focus {
+          border: 1px solid $gray-700;
+          box-shadow: none;
+          outline: none;
+        }
+      }
+      &:focus {
+        border-color: rgba($highlight--dark, 0.7);
+        box-shadow: 0 0 0 3px rgba($highlight--dark, 0.2);
+      }
     }
   }
   // Checked: color the background, show the checkmark
@@ -66,6 +84,12 @@
     align-items: center;
     // For better outline
     padding: 2px;
+    &[aria-disabled=true] {
+      color: $gray-400;
+      [data-uppy-theme="dark"] & {
+        color: $gray-700;
+      }
+    }
     &:focus {
       outline: none;
       text-decoration: underline;

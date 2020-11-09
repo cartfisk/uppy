@@ -1,3 +1,5 @@
+const { adheresToRestrictions } = require('@uppy/utils/lib/adheresToRestrictions')
+
 module.exports = class SharedHandler {
   constructor (plugin) {
     this.plugin = plugin
@@ -5,6 +7,7 @@ module.exports = class SharedHandler {
     this.toggleCheckbox = this.toggleCheckbox.bind(this)
     this.isChecked = this.isChecked.bind(this)
     this.loaderWrapper = this.loaderWrapper.bind(this)
+    this.restrictions = this.plugin.uppy.opts.restrictions
   }
 
   filterItems (items) {
@@ -42,6 +45,7 @@ module.exports = class SharedHandler {
       } else {
         currentSelection = items.slice(currentIndex, prevIndex + 1)
       }
+      currentSelection = currentSelection.filter(file => adheresToRestrictions(file, this.restrictions))
       this.plugin.setPluginState({ currentSelection })
       return
     }
@@ -54,7 +58,7 @@ module.exports = class SharedHandler {
       })
     } else {
       this.plugin.setPluginState({
-        currentSelection: currentSelection.concat([file])
+        currentSelection: adheresToRestrictions(file, this.restrictions) ? currentSelection.concat([file]) : currentSelection
       })
     }
   }

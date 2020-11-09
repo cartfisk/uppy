@@ -40,6 +40,7 @@ const Browser = (props) => {
         showTitles={props.showTitles}
         i18n={props.i18n}
         viewType={props.viewType}
+        restrictions={props.restrictions}
       />
       {selected > 0 && <FooterActions selected={selected} {...props} />}
     </div>

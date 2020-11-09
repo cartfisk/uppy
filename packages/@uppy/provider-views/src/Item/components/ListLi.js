@@ -40,7 +40,11 @@ module.exports = (props) => {
 
       {props.type === 'file' ? (
         // label for a checkbox
-        <label for={props.id} className="uppy-u-reset uppy-ProviderBrowserItem-inner">
+        <label
+          for={props.id}
+          className="uppy-u-reset uppy-ProviderBrowserItem-inner"
+          aria-disabled={props.isDisabled}
+        >
           {props.itemIconEl}
           {props.showTitles && props.title}
         </label>

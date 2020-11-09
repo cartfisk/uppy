@@ -1,5 +1,6 @@
 const { h } = require('preact')
 const Item = require('./Item/index')
+const { adheresToRestrictions } = require('@uppy/utils/lib/adheresToRestrictions')
 
 const getSharedProps = (fileOrFolder, props) => ({
   id: fileOrFolder.id,
@@ -10,7 +11,8 @@ const getSharedProps = (fileOrFolder, props) => ({
   columns: props.columns,
   showTitles: props.showTitles,
   viewType: props.viewType,
-  i18n: props.i18n
+  i18n: props.i18n,
+  restrictions: props.restrictions
 })
 
 module.exports = (props) => {
@@ -39,7 +41,7 @@ module.exports = (props) => {
           Item({
             ...getSharedProps(file, props),
             type: 'file',
-            isDisabled: false
+            isDisabled: !adheresToRestrictions(file, props.restrictions)
           })
         )}
       </ul>
